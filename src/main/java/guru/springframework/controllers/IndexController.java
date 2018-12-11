@@ -19,13 +19,11 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+
     private RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeService recipeService) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+
         this.recipeService = recipeService;
     }
 
@@ -34,11 +32,6 @@ public class IndexController {
 
         log.debug("Getting index page");
 
-        Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        System.out.println("Get Id is: " + categoryOptional.get().getId());
-        System.out.println("Get Id is: " + unitOfMeasureOptional.get().getId());
 
         model.addAttribute("recipes", recipeService.getAllRecipes());
         return "index";
